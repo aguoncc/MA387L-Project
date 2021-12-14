@@ -42,22 +42,61 @@ VARIABLE LABELS  MAJOR_STEM 'Stem major or not'.
 EXECUTE.
 
 **RECODE SURVERYS 1-5 INTO NON-STRINGS**
+SURVEYS1,3,&4 into 1-(strongly) agree and 0-(strongly) disagree
+assuming higher scorers would have answered with strongly agree to agree
+SURVEYS2&5 into 1-(strongly) disagree and 0-(strongly) agree
+- unsure if no opinion should be in missing or code into 0 as well
 
-RECODE SURVEY1 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('3'=3) ('3.0'=3) ('4'=4) ('4.0'=4) ('5'=5) 
-    ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY1_RECODE. 
+RECODE SURVEY1 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('4'=4) ('4.0'=4) ('5'=5) ('5.0'=5)
+    (MISSING=SYSMIS) INTO SURVEY1_RECODE. 
 EXECUTE.
-RECODE SURVEY2 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('3'=3) ('3.0'=3) ('4'=4) ('4.0'=4) ('5'=5) 
-    ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY2_RECODE. 
+RECODE SURVEY2 ('1'=0) ('1.0'=0) ('2'=0) ('2.0'=0) ('4'=1) ('4.0'=1) ('5'=1) ('5.0'=1)  
+    (MISSING=SYSMIS) INTO SURVEY2_RECODE. 
 EXECUTE.
-RECODE SURVEY3 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('3'=3) ('3.0'=3) ('4'=4) ('4.0'=4) ('5'=5) 
-    ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY3_RECODE. 
+RECODE SURVEY3 ('1'=1) ('1.0'=1) ('2'=1) ('2.0'=1) ('4'=0) ('4.0'=0) ('5'=0) ('5.0'=0)
+     (MISSING=SYSMIS) INTO SURVEY3_RECODE. 
 EXECUTE.
-RECODE SURVEY4 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('3'=3) ('3.0'=3) ('4'=4) ('4.0'=4) ('5'=5) 
+RECODE SURVEY4 ('1'=1) ('1.0'=1) ('2'=1) ('2.0'=1) ('4'=0) ('4.0'=0) ('5'=0) ('5.0'=0)
     ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY4_RECODE. 
 EXECUTE.
-RECODE SURVEY5 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('3'=3) ('3.0'=3) ('4'=4) ('4.0'=4) ('5'=5) 
+RECODE SURVEY5 ('1'=0) ('1.0'=0) ('2'=0) ('2.0'=0) ('4'=1) ('4.0'=1) ('5'=1) ('5.0'=1)
     ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY5_RECODE. 
 EXECUTE.
+
+*INDEPENDENT T-TEST
+significant at both 0.05 and 0.01
+
+T-TEST GROUPS=Gender(1 0) 
+  /MISSING=ANALYSIS 
+  /VARIABLES=TOTAL_PERCENT 
+  /CRITERIA=CI(.95).
+T-TEST GROUPS=Gender(1 0) 
+  /MISSING=ANALYSIS 
+  /VARIABLES=TOTAL_PERCENT 
+  /CRITERIA=CI(.99).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
