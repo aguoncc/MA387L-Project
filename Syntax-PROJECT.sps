@@ -50,21 +50,22 @@ SURVEYS2&5 into 1-(strongly) disagree and 0-(strongly) agree
 RECODE SURVEY1 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('4'=4) ('4.0'=4) ('5'=5) ('5.0'=5)
     (MISSING=SYSMIS) INTO SURVEY1_RECODE. 
 EXECUTE.
-RECODE SURVEY2 ('1'=0) ('1.0'=0) ('2'=0) ('2.0'=0) ('4'=1) ('4.0'=1) ('5'=1) ('5.0'=1)  
+RECODE SURVEY2 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('4'=4) ('4.0'=4) ('5'=5) ('5.0'=5)  
     (MISSING=SYSMIS) INTO SURVEY2_RECODE. 
 EXECUTE.
-RECODE SURVEY3 ('1'=1) ('1.0'=1) ('2'=1) ('2.0'=1) ('4'=0) ('4.0'=0) ('5'=0) ('5.0'=0)
+RECODE SURVEY3 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('4'=4) ('4.0'=4) ('5'=5) ('5.0'=5)
      (MISSING=SYSMIS) INTO SURVEY3_RECODE. 
 EXECUTE.
-RECODE SURVEY4 ('1'=1) ('1.0'=1) ('2'=1) ('2.0'=1) ('4'=0) ('4.0'=0) ('5'=0) ('5.0'=0)
+RECODE SURVEY4 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('4'=4) ('4.0'=4) ('5'=5) ('5.0'=5)
     ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY4_RECODE. 
 EXECUTE.
-RECODE SURVEY5 ('1'=0) ('1.0'=0) ('2'=0) ('2.0'=0) ('4'=1) ('4.0'=1) ('5'=1) ('5.0'=1)
+RECODE SURVEY5 ('1'=1) ('1.0'=1) ('2'=2) ('2.0'=2) ('4'=4) ('4.0'=4) ('5'=5) ('5.0'=5)
     ('5.0'=5) (MISSING=SYSMIS) INTO SURVEY5_RECODE. 
 EXECUTE.
 
 *INDEPENDENT T-TEST
 significant at both 0.05 and 0.01
+males tend to score higher
 
 T-TEST GROUPS=Gender(1 0) 
   /MISSING=ANALYSIS 
@@ -76,7 +77,15 @@ T-TEST GROUPS=Gender(1 0)
   /CRITERIA=CI(.99).
 
 
+*histo and boxplot
 
+GRAPH 
+  /HISTOGRAM=TOTAL_PERCENT 
+  /PANEL ROWVAR=Gender ROWOP=CROSS.
+EXAMINE VARIABLES=TOTAL_PERCENT BY Gender 
+  /PLOT=BOXPLOT 
+  /STATISTICS=NONE 
+  /NOTOTAL.
 
 
 
