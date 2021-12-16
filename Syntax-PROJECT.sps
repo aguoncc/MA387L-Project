@@ -1,4 +1,5 @@
 ﻿* Encoding: UTF-8.
+* Encoding: .
 **PROJECT SYNTAX**
 
 *RECODE TOTAL
@@ -76,7 +77,6 @@ T-TEST GROUPS=Gender(1 0)
   /VARIABLES=TOTAL_PERCENT 
   /CRITERIA=CI(.99).
 
-
 *histo and boxplot
 
 GRAPH 
@@ -85,15 +85,31 @@ GRAPH
 EXAMINE VARIABLES=TOTAL_PERCENT BY Gender 
   /PLOT=BOXPLOT 
   /STATISTICS=NONE 
-  /NOTOTAL.
+  /NOTOTAL. 
+
+*new variable math_placement
+
+RECODE TOTAL ('0 to 50'=1) ('51 to 64'=2) ('65 to 100'=3)
+    (MISSING=SYSMIS) INTO Math_Placment. 
+EXECUTE.
+
+*recode math_placement into 2 options college prep (0) and college lvl (1)
+
+RECODE Math_Placement (MISSING=SYSMIS) (1=0) (3=1) (2=1) 
+    INTO MP_RECODE. 
+EXECUTE.
+
+*recode survey 1 into 2 options agree (1) and disagree (0) 
+
+RECODE SURVEY1 ('1'=1) ('2'=1) ('4'=0) ('5'=0) (MISSING=SYSMIS) 
+    INTO survey1_v2. 
+EXECUTE.
 
 
-
-
-
-
-
-
+T-TEST GROUPS=Gender(1 0) 
+  /MISSING=ANALYSIS 
+  /VARIABLES=Math_Placement 
+  /CRITERIA=CI(.95).
 
 
 
