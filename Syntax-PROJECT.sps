@@ -71,10 +71,6 @@ males tend to score higher
 T-TEST GROUPS=Gender(1 0) 
   /MISSING=ANALYSIS 
   /VARIABLES=TOTAL_PERCENT 
-  /CRITERIA=CI(.95).
-T-TEST GROUPS=Gender(1 0) 
-  /MISSING=ANALYSIS 
-  /VARIABLES=TOTAL_PERCENT 
   /CRITERIA=CI(.99).
 
 *histo and boxplot
@@ -111,7 +107,14 @@ T-TEST GROUPS=Gender(1 0)
   /VARIABLES=Math_Placement 
   /CRITERIA=CI(.95).
 
+*chi square
 
+CROSSTABS 
+  /TABLES=Gender BY Math_Placement 
+  /FORMAT=AVALUE TABLES 
+  /STATISTICS=CHISQ 
+  /CELLS=COUNT EXPECTED 
+  /COUNT ROUND CELL.
 
 
 
